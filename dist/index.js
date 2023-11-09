@@ -3,13 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 let uuid = (0, uuid_1.v4)();
 console.log(uuid);
-// const customUUID: string = uuidv4();
-// console.log("Your custom UUID is:", customUUID);
-// export function getRandomUint32() {
-//     const data = new Uint32Array(1);
-//     crypto.getRandomValues(data);
-//     return `${data[0]}`;
-// }
 // create new User
 function createUser(name, age) {
     // create new User object
@@ -76,7 +69,7 @@ function printCart(user) {
     for (let item of user.cart) {
         console.log(`${item.name} : $${item.price}`);
     }
-    console.log(`Total : $ ${cartTotal(user)}`);
+    return (`Total : $ ${cartTotal(user)}`);
 }
 addToCart(newUser1, newItem1);
 // console.log(newUser1.cart);

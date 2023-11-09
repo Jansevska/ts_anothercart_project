@@ -93,7 +93,7 @@ function printCart(user:User){
     for (let item of user.cart){
         console.log(`${item.name} : $${item.price}`)
     }
-    console.log(`Total : $ ${cartTotal(user)}`)
+    return(`Total : $ ${cartTotal(user)}`)
 }
 
 addToCart(newUser1, newItem1);
