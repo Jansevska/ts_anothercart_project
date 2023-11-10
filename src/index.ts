@@ -4,11 +4,27 @@ let uuid= uuidv4()
 console.log(uuid)
 
 
-type Item = {
+type Items = {
     id: string,
     name: string,
     price: number,
     description: string
+}
+
+class Item {
+    constructor(
+        private _id: string = uuidv4(),
+        private _name:string,
+        private _price:number,
+        private _description:string,
+        ){}
+
+    public get id(): string {
+        return this._id;
+    }
+    public set id(value: string) {
+        this._id = value;
+    }
 }
 
 type User = {
@@ -17,6 +33,110 @@ type User = {
     age:number,
     cart:Item[]
 }
+
+class User {
+
+    constructor(
+        private _id: string = uuidv4(),
+        private _name:string,
+        private _age:number,
+        private _cart:Item[]
+    ){}
+
+    public get id(): string {
+        return this._id;
+    }
+    public set id(value: string) {
+        this._id = value;
+    }
+
+    addToCart(user:User, item:Item):void {
+        this.cart.push(item);
+    }
+
+    removeFromCart(user:User, itemToRemove:Item):void{
+        this.cart = user.cart.filter(item => item.id != itemToRemove.id);
+    }
+
+    removeFromCartQty(user:User, itemToRemove:Item, qty:number):void{
+        for (let i=0; i<qty; i++){
+            let idx = user.cart.findIndex(item => item.id === itemToRemove.id);
+            this.user.cart.splice(idx, 1);
+        }
+    }
+
+    cartTotal(user:User){
+        let total=0;
+        for (let item of user.cart){
+            total += item.price
+        }
+        return total;
+    }
+
+    printCart(user:User){
+        console.log(`${user.name}'s Cart:`)
+        for (let item of user.cart){
+            console.log(`${item.name} : $${item.price}`)
+        }
+        return(`Total : $ ${cartTotal(user)}`)
+    }
+}
+
+// class Shop {
+
+//     constructor(
+//         private _item1: string = 'pen',
+//         private _item2: string = 'notebook',
+//         private _item3: string = 'Post-it',
+//     ){}
+
+//     public get item3(): string {
+//         return this._item3;
+//     }
+//     public set item3(value: string) {
+//         this._item3 = value;
+//     }
+//     public get item2(): string {
+//         return this._item2;
+//     }
+//     public set item2(value: string) {
+//         this._item2 = value;
+//     }
+//     public get item1(): string {
+//         return this._item1;
+//     }
+//     public set item1(value: string) {
+//         this._item1 = value;
+//     }
+// }
+
+class ShopI {
+
+    constructor(
+        private _items: Items[] = [],
+    ){
+        createItem(name:string, price:number, description:string): Item {
+            const newItem: Item = {
+                id:uuidv4(),
+                name:name,
+                price:price,
+                description:description
+            }
+            Object.assign(newItem);
+        }
+    }
+
+    public get items(): Items[] {
+        return this._items;
+    }
+    public set items(value: Items[]) {
+        this._items = value;
+    }
+}
+
+
+
+
 
 // create new User
 function createUser(name: string, age: number): User {
